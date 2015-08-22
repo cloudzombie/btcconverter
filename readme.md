@@ -10,4 +10,4 @@ Flask, blockchain
 Just type `python app.py`
 
 ##3. Sample
-[Here](http://btcconverter-kotaura.rhcloud.com) is the mock application (because of openstack doesn't allow to use POST methods.)
+[Here](http://btcconverter-kotaura.rhcloud.com) is the mock application (because of openstack doesn't allow to use POST methods.) This will be fixed.
