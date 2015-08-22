@@ -1,11 +1,12 @@
 #coding:utf-8
 from flask import Flask, render_template, request, redirect, url_for
 import urllib2
-from blockchain import exchangerates
+from blockchain import exchangerates, statistics
 
 #Global variables
 app = Flask(__name__)
 ticker = exchangerates.get_ticker()
+stats = statistics.get()
 
 #Def
 def ccylists():
@@ -47,8 +48,8 @@ def jpy():
 	priceList = []
 	for item in ccyprice():
 		priceList.append(item)
-
-	return render_template('index.html', excrat=excrat, excsym=excsym, home=home, name=name, btc_amo=btc_amo, ccyprice=priceList, ccylists=ccylists(), title=title)
+	usdmktprice = stats.market_price_usd
+	return render_template('index.html', usdmktprice=usdmktprice, excrat=excrat, excsym=excsym, home=home, name=name, btc_amo=btc_amo, ccyprice=priceList, ccylists=ccylists(), title=title)
 
 #Conf
 if __name__ == '__main__':
