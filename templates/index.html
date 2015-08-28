@@ -7,6 +7,9 @@
         <div class="col-lg-12">
             <div class="page-header">
                 <h1 id="type"><a href="{{ home }}">BTC Simple Converter</a></h1>
+                    <div id="chart">
+                        <!-- Here comes the chart -->
+                    </div>
             </div>
         </div>
     </div>
@@ -60,6 +63,7 @@
             {% endfor %}
 
             {% endif %}
+
             </div>
         </div>
     </div>
@@ -76,4 +80,8 @@
     </footer>
 
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="./static/js/c3/chart.js"></script>
 {% endblock %}

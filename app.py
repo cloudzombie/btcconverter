@@ -1,12 +1,14 @@
 #coding:utf-8
 from flask import Flask, render_template, request, redirect, url_for
-import urllib2
+import urllib2, datetime, json
 from blockchain import exchangerates, statistics
 
 #Global variables
 app = Flask(__name__)
 ticker = exchangerates.get_ticker()
 stats = statistics.get()
+#havent use this api below
+bcchartapi = "https://blockchain.info/ja/charts/market-price?showDataPoints=false&timespan=&show_header=true&daysAverageString=1&scale=0&format=json&address="
 
 #Def
 def ccylists():
