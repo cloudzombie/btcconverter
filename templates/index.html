@@ -8,7 +8,7 @@
             <div class="page-header">
                 <h1 id="type"><a href="{{ home }}">BTC Simple Converter</a></h1>
                     <div id="chart">
-                        <!-- Here comes the chart -->
+                        <!-- Code -->
                     </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <p><i class="fa fa-thumbs-up"></i> Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v</p>
-                <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap3</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+                <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap3</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>. Chart library from <a href="http://c3js.org">C3.js</a></p>
                 <p>All datas are collected from Blockchain.</p>
             </div>
         </div>
@@ -82,6 +82,7 @@
 </div>
 {% endblock %}
 
+
 {% block script %}
-<script src="./static/js/c3/chart.js"></script>
+<script src="./chart"></script>
 {% endblock %}
