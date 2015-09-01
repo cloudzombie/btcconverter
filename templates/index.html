@@ -7,22 +7,34 @@
         <div class="col-lg-12">
             <div class="page-header">
                 <h1 id="type"><a href="{{ home }}">BTC Simple Converter</a></h1>
-                    <div id="chart">
-                        <!-- Code -->
-                    </div>
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <div id="chart">
+            <!-- Chart Code -->
+        </div>
+        <div class="col-md col-md-offset-3">
+        <a href="#" class="btn btn-default">Default</a>
+        <a href="/3days" class="btn btn-primary">3days</a>
+        <a href="/7days" class="btn btn-success">7days</a>
+        <a href="/15days" class="btn btn-info">15days</a>
+        <a href="/30days" class="btn btn-warning">30days</a>
+        <a href="/60days" class="btn btn-danger">60days</a>
+        <a href="/90days" class="btn btn-danger">90days</a>
+        </div>
+    </div>
+
 <!-- Left -->
-    <form action="/jpy" method="post" class="form-inline">
+    <form action="/jpy" method="post" class="form-inline"><br />
     <div class="row">
         <div class="col-lg-4">
             <div class="bs-component">
                 <div class="form-group">
                         <input class="form-control" id="name" name="name" placeholder="Name" value="0">
                 </div>
-                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+                <div id="source-button" class="btn btn-primary" style="display: none;">&lt; &gt;</div>
             </div>
         </div>
 
@@ -32,6 +44,8 @@
         <div class="col-lg-4">
             <div class="bs-component">
                 <button class="btn btn-default" type="submit">JPY</button>
+                <button class="btn btn-default" type="submit">EUR</button>
+                <button class="btn btn-default" type="submit">CHY</button>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 Other
                     <span class="caret"></span>
@@ -50,7 +64,7 @@
             <div class="bs-component">
             {% if name %}
             <h2>Converted Rate</h2>
-            <p>{{ excsym }}{{ name }} <i class="fa fa-arrows-h"></i> <i class="fa fa-btc"></i> {{ btc_amo }} BTC.</p>
+            <p>{{ excsym }} {{ name }} <i class="fa fa-arrows-h"></i> <i class="fa fa-btc"></i> {{ btc_amo }} BTC.</p>
             <p>Effective rate : {{ excsym }} {{ excrat }} / <i class="fa fa-btc"></i> 1.000 BTC</p>
             <p>Market Price : $ {{ usdmktprice }}</p>
             {% else %}
@@ -78,11 +92,11 @@
             </div>
         </div>
     </footer>
-
+    </div>
 </div>
 {% endblock %}
 
 
 {% block script %}
-<script src="./chart"></script>
+<script src="./chart{{ chartnum }}"></script>
 {% endblock %}
