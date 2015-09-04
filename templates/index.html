@@ -23,8 +23,30 @@
         <a href="/30days" class="btn btn-warning">30days</a>
         <a href="/60days" class="btn btn-danger">60days</a>
         <a href="/90days" class="btn btn-danger">90days</a>
+        </div><br />
+        <table class="table">
+            <thead>
+                <tr class="default">
+                <th>Min</th>
+                <th>Max</th>
+                <th>Mean</th>
+                <th>Variance</th>
+                <th>Skewness</th>
+                <th>Kurtosis</th>
+                </tr>
+            </thead>
+                <tbody>
+                <tr>
+                <td>{{ statmin }}</td>
+                <td>{{ statmax }}</td>
+                <td>{{ statmean }}</td>
+                <td>{{ statvar }}</td>
+                <td>{{ statskew }}</td>
+                <td>{{ statkur }}</td>
+                </tr>
+                </tbody>
+        </table>
         </div>
-    </div>
 
 <!-- Left -->
     <form action="/jpy" method="post" class="form-inline"><br />

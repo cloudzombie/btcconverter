@@ -3,6 +3,9 @@ from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from blockchain import exchangerates, statistics
 from chart import chart
 import urllib2, json, requests, datetime
+import pandas as pd
+import numpy as np
+import scipy.stats
 
 #Global variables
 app = Flask(__name__)

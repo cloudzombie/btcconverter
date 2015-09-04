@@ -2,35 +2,150 @@ from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from blockchain import exchangerates, statistics
 from flask import Blueprint
 import urllib2, json, requests, datetime
+import pandas as pd
+import numpy as np
+import scipy.stats
 
 chart = Blueprint('chart',__name__)
+
+#For statistics
+stats = statistics.get()
+actualpricelist = []
+actualtimelist = []
+actualpricelist_rev = []
+actualtimelist_rev = []
+
+#Chart section
+jsonfilein = 'https://blockchain.info/charts/market-price?showDataPoints=false&timespan=&show_header=true&daysAverageString=1&scale=0&format=json&address='
+r = requests.get(jsonfilein)
+j = r.json()
+entries = j['values']
+
+
+def actualprice():
+	for e in entries:
+		yield e['y']
 
 @chart.route('/3days')
 def c3():
 	chartnum = 3
-	return render_template('index.html', chartnum=chartnum)
+
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:3]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/7days')
 def c7():
 	chartnum = 7
-	return render_template('index.html', chartnum=chartnum)
+
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:7]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/15days')
 def c15():
 	chartnum = 15
-	return render_template('index.html', chartnum=chartnum)
+
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:15]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/30days')
 def c30():
 	chartnum = 30
-	return render_template('index.html', chartnum=chartnum)
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:30]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+
 
 @chart.route('/60days')
 def c60():
 	chartnum = 60
-	return render_template('index.html', chartnum=chartnum)
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:60]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/90days')
 def c90():
 	chartnum = 90
-	return render_template('index.html', chartnum=chartnum)
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev[:90]
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.kurtosis(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
