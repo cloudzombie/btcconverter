@@ -15,3 +15,7 @@ Just type `python app.py`
 
 ##3. Sample
 [Here](http://ukkk941034bf.kotaura.koding.io:5000)
+
+When here's down, the server is also down.
+
+Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v

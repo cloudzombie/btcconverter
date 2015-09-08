@@ -33,6 +33,7 @@ def c3():
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+#array for numpy
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:3]
 
@@ -42,7 +43,7 @@ def c3():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -63,7 +64,7 @@ def c7():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -84,7 +85,7 @@ def c15():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -104,7 +105,7 @@ def c30():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -125,7 +126,7 @@ def c60():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -145,7 +146,7 @@ def c90():
 	statmax = np.max(statsample)
 	statvar = np.var(statsample)
 	statmean = np.mean(statsample)
-	statskew = scipy.stats.kurtosis(statsample)
+	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 
 	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
