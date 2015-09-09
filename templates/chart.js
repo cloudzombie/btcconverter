@@ -1,9 +1,14 @@
 var chart = c3.generate({
     data: {
-        x: 'Date',
+        xs: {
+            'Actual Price': 'Date',
+            'Prediction Price': 'PDate'
+        },
         columns: [
             {{ actualtime }},
-            {{ actualprice }}
+            {{ actualprice }},
+            {{ predictiontime }},
+            {{ predictionpricelist }}
         ]
     },
     axis: {

@@ -26,6 +26,28 @@ def actualprice():
 	for e in entries:
 		yield e['y']
 
+@chart.route('/')
+def c1():
+
+	for ap in actualprice():
+		actualpricelist_rev.append(ap)
+
+#array for numpy
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev
+
+#stats datas
+	statsample = np.array(aplrev)
+	statmin = np.min(statsample)
+	statmax = np.max(statsample)
+	statvar = np.var(statsample)
+	statmean = np.mean(statsample)
+	statskew = scipy.stats.skew(statsample)
+	statkur = scipy.stats.kurtosis(statsample)
+
+	return render_template('index.html',statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
+
+
 @chart.route('/3days')
 def c3():
 	chartnum = 3

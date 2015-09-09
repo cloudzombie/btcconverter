@@ -49,6 +49,14 @@ def actualtime():
 	for e in entries:
 		yield datetime.datetime.fromtimestamp(int(e['x'])).strftime('%Y-%m-%d')
 
+def predictionprice():
+    for e in entries:
+        yield e['y']
+
+def predictiontime():
+    for e in entries:
+        yield e['x']
+
 #Flask view
 @app.route('/')
 def index():
@@ -65,24 +73,69 @@ def index():
 
 @app.route('/chart')
 def chart():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
-		actualpricelist.append(ap)
-	apl = actual + actualpricelist
+		actualpricelist_rev.append(ap)
+
+	actualpricelist_rev.reverse()
+	aplrev = actualpricelist_rev
+	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
-		actualtimelist.append(t)
-	atl = date + actualtimelist
+		actualtimelist_rev.append(t)
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	actualtimelist_rev.reverse()
+	atrev = actualtimelist_rev
+	atl = date + atrev
+
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+
 
 @app.route('/chart3')
 def chart3():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:3]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
@@ -91,16 +144,49 @@ def chart3():
 	atrev = actualtimelist_rev[:3]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 172800)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:3]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:3]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart7')
 def chart7():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:7]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
@@ -109,16 +195,49 @@ def chart7():
 	atrev = actualtimelist_rev[:7]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 518400)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:7]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:7]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart15')
 def chart15():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:15]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
@@ -127,16 +246,49 @@ def chart15():
 	atrev = actualtimelist_rev[:15]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 1209600)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:15]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:15]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart30')
 def chart30():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:30]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
@@ -145,16 +297,49 @@ def chart30():
 	atrev = actualtimelist_rev[:30]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 2505600)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:30]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:30]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart60')
 def chart60():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:60]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
@@ -163,25 +348,88 @@ def chart60():
 	atrev = actualtimelist_rev[:60]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 5097600)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:60]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:60]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+
 
 @app.route('/chart90')
 def chart90():
+	predictiontimelist = []
+	predictiontimelist_rev = []
+	predictiontimelist_rev_decoded = ['PDate']
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:91]
+	aplrev = actualpricelist_rev[:90]
 	apl = actual + aplrev
+	ppl = pd.Series(aplrev)
 
 	for t in actualtime():
 		actualtimelist_rev.append(t)
 
 	actualtimelist_rev.reverse()
-	atrev = actualtimelist_rev[:91]
+	atrev = actualtimelist_rev[:90]
 	atl = date + atrev
 
-	return render_template('chart.js', actualtime=atl, actualprice=apl)
+	for pt in predictiontime():
+		predictiontimelist_rev.append(pt + 7689600)
+
+	predictiontimelist_rev.reverse()
+	ptrev = predictiontimelist_rev[:90]
+
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:90]
+
+	ptl = pd.Series(traintimelist)
+
+	for timedecode in ptrev:
+		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
+
+#Pandas linear regression prediction model
+	model = pd.ols(y=ppl, x=ptl)
+
+	modelx = model.beta['x']
+	modelintercept = model.beta['intercept']
+
+#Price from linear reg
+	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist.insert(0,'Prediction Price')
+
+	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+
 
 @app.route('/jpy', methods=['GET', 'POST'])
 def jpy():
