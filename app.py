@@ -73,6 +73,10 @@ def index():
 
 @app.route('/chart')
 def chart():
+	actualpricelist = []
+	actualtimelist = []
+	actualpricelist_rev = []
+	actualtimelist_rev = []
 	predictiontimelist = []
 	predictiontimelist_rev = []
 	predictiontimelist_rev_decoded = ['PDate']
@@ -121,7 +125,6 @@ def chart():
 	predictionpricelist.insert(0,'Prediction Price')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
-
 
 @app.route('/chart3')
 def chart3():
