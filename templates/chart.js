@@ -14,9 +14,19 @@ var chart = c3.generate({
     axis: {
         x: {
             type: 'timeseries',
+            label: 'Date',
             tick: {
                 format: '%Y-%m-%d'
             }
+        },
+        y: {
+            label: {
+            text: 'BTC Price',
+            position: 'outer-middle'
+            },
+            tick: {
+                format: d3.format("$")
         }
     }
+}
 });

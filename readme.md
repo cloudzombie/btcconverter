@@ -18,10 +18,10 @@ Also this will help you to buy/sell bitcoins by chart.
 ##2. Requirement modules
 Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain
 
-##2. Run
+##3. Run
 Move to the `app.py` directory and type `python app.py`
 
-##3. Sample
+##4. Sample
 [Here](http://ukkk941034bf.kotaura.koding.io:5000)
 
 When here's down, the server is also down.
