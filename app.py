@@ -449,6 +449,6 @@ def jpy():
 	return render_template('index.html', usdmktprice=usdmktprice, excrat=excrat, excsym=excsym, home=home, name=name, btc_amo=btc_amo, ccyprice=priceList, ccylists=ccylists(), title=title)
 
 #Conf
-if __name__ == '__main__':
-	app.debug = True
-	app.run(host='0.0.0.0')
+# if __name__ == '__main__':
+# 	app.debug = True
+# 	app.run(host='0.0.0.0')
