@@ -1,1 +1,2 @@
-web: gunicorn app:app --log-file=-
+web: gunicorn btcconverter:app --log-file -
+worker: python app.py
