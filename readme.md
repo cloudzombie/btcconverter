@@ -1,19 +1,25 @@
 #Simple BTC Converter and Predictor
 
-![](./images/btcconv.tiff)
+![](./images/btconv.tiff)
 
 ##0. About this program
 This program provides you a conversion rate of bitcoin to the other major currencies.
 
 Also this will help you to buy/sell bitcoins by chart.
 
-Powered by Python, Flask, Jinja2
+##1. About statistics
+- Min, Max, Mean, Variance, Skewness and Kurtosis
+- Linear regression
+- Time series
+- t-value and p-value
 
-##1. Requirement modules
-Flask, blockchain, json,
+**Warning : Please note that I won't be responsible for any loss, damages and troubles.**
+
+##2. Requirement modules
+Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain
 
 ##2. Run
-Just type `python app.py`
+Move to the `app.py` directory and type `python app.py`
 
 ##3. Sample
 [Here](http://ukkk941034bf.kotaura.koding.io:5000)
