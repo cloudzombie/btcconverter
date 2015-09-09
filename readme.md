@@ -1,5 +1,7 @@
 #Simple BTC Converter and Predictor
 
+![](./images/btcconv.tiff)
+
 ##0. About this program
 This program provides you a conversion rate of bitcoin to the other major currencies.
 
