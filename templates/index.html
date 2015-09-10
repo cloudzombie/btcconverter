@@ -52,14 +52,14 @@
                 <td>{{ statkur|round(3, 'common') }}</td>
                 </tr>
                 </tbody>
+            <thead>
+                <tr class="info">
+                <th data-toggle="tooltip" data-placement="top" data-container="body" title="最小値。期間中の最小の価格です。">Data Num</th>
+                </tr>
+            </thead>
                 <tbody>
                 <tr>
                 <td>{{ statmin }}</td>
-                <td>{{ statmax }}</td>
-                <td>{{ statmean|round(3, 'common') }}</td>
-                <td>{{ statvar|round(3, 'common') }}</td>
-                <td>{{ statskew|round(3, 'common') }}</td>
-                <td>{{ statkur|round(3, 'common') }}</td>
                 </tr>
                 </tbody>
         </table>
