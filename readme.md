@@ -22,7 +22,7 @@ Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain
 Move to the `app.py` directory and type `python app.py`
 
 ##4. Sample
-[Here](http://ukkk941034bf.kotaura.koding.io:5000)
+[Here](https://btcconverter.herokuapp.com)
 
 When here's down, the server is also down.
 
