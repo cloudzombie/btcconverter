@@ -16,6 +16,7 @@ This program provides you a conversion rate of bitcoin to the other major curren
 All datas are collected from [Blockchain](https://blockchain.info).
 
 **Converter function does not work except JPY**
+
 **Warning : Please note that I won't be responsible for any loss, damages and troubles.**
 
 ##2. Requirement modules
@@ -24,5 +25,5 @@ Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain, C3.js
 ##3. Sample
 [Here](https://btcconverter.herokuapp.com)
 
-Down between 3AM to 9AM, powered by Heroku
+This system will be down between 3AM to 9AM, powered by Heroku
 Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v
