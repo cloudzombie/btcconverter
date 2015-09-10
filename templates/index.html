@@ -46,10 +46,20 @@
                 <tr>
                 <td>{{ statmin }}</td>
                 <td>{{ statmax }}</td>
-                <td>{{ statmean|round(1, 'common') }}</td>
-                <td>{{ statvar|round(1, 'common') }}</td>
-                <td>{{ statskew|round(1, 'common') }}</td>
-                <td>{{ statkur|round(1, 'common') }}</td>
+                <td>{{ statmean|round(3, 'common') }}</td>
+                <td>{{ statvar|round(3, 'common') }}</td>
+                <td>{{ statskew|round(3, 'common') }}</td>
+                <td>{{ statkur|round(3, 'common') }}</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                <td>{{ statmin }}</td>
+                <td>{{ statmax }}</td>
+                <td>{{ statmean|round(3, 'common') }}</td>
+                <td>{{ statvar|round(3, 'common') }}</td>
+                <td>{{ statskew|round(3, 'common') }}</td>
+                <td>{{ statkur|round(3, 'common') }}</td>
                 </tr>
                 </tbody>
         </table>

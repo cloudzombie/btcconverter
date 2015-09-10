@@ -8,7 +8,7 @@ var chart = c3.generate({
             {{ actualtime }},
             {{ actualprice }},
             {{ predictiontime }},
-            {{ predictionpricelist }}
+            {{ predictionpricelist|round(3, 'common') }}
         ]
     },
     axis: {
