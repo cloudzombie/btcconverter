@@ -3,9 +3,9 @@
 ![](./images/btconv.tiff)
 
 ##0. About this program
-This program provides you a conversion rate of bitcoin to the other major currencies.
+Yes... This **was** just a conveter, but now it's not only conveter but also predictor.
 
-Also this will help you to buy/sell bitcoins by chart.
+This program provides you a conversion rate of bitcoin to the other major currencies. Also this will help you to buy/sell bitcoins by prediction chart.
 
 ##1. About statistics
 - Min, Max, Mean, Variance, Skewness and Kurtosis
@@ -13,17 +13,16 @@ Also this will help you to buy/sell bitcoins by chart.
 - Time series
 - t-value and p-value
 
+All datas are collected from [Blockchain](https://blockchain.info).
+
+**Converter function does not work except JPY**
 **Warning : Please note that I won't be responsible for any loss, damages and troubles.**
 
 ##2. Requirement modules
-Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain
+Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain, C3.js
 
-##3. Run
-Move to the `app.py` directory and type `python app.py`
-
-##4. Sample
+##3. Sample
 [Here](https://btcconverter.herokuapp.com)
 
-When here's down, the server is also down.
-
+Down between 3AM to 9AM, powered by Heroku
 Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v
