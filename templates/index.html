@@ -46,10 +46,10 @@
                 <tr>
                 <td>{{ statmin }}</td>
                 <td>{{ statmax }}</td>
-                <td>{{ '%0.2f' % proc_err|statmean }}</td>
-                <td>{{ '%0.2f' % proc_err|statvar }}</td>
-                <td>{{ '%0.2f' % proc_err|statskew }}</td>
-                <td>{{ '%0.2f' % proc_err|statkur }}</td>
+                <td>{{ statmean|round(1, 'common') }}</td>
+                <td>{{ statvar|round(1, 'common') }}</td>
+                <td>{{ statskew|round(1, 'common') }}</td>
+                <td>{{ statkur|round(1, 'common') }}</td>
                 </tr>
                 </tbody>
         </table>
