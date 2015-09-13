@@ -44,7 +44,7 @@ def c1():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = len(actualpricelist)
+	statnum = len(aplrev)
 
 	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
