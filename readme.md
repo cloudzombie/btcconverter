@@ -10,8 +10,8 @@ This program provides you a conversion rate of bitcoin to the other major curren
 ##1. About statistics
 - Min, Max, Mean, Variance, Skewness and Kurtosis
 - Linear regression
-- Time series
-- t-value and p-value
+- Time series (soon)
+- Chi-squared value & p-value
 
 All datas are collected from [Blockchain](https://blockchain.info).
 

@@ -45,8 +45,11 @@ def c1():
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
+	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 
 @chart.route('/3days')
@@ -68,10 +71,12 @@ def c3():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/7days')
 def c7():
@@ -91,10 +96,13 @@ def c7():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/15days')
 def c15():
@@ -114,9 +122,12 @@ def c15():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/30days')
 def c30():
@@ -135,9 +146,12 @@ def c30():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 
 @chart.route('/60days')
@@ -157,9 +171,12 @@ def c60():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/90days')
 def c90():
@@ -178,6 +195,9 @@ def c90():
 	statmean = np.mean(statsample)
 	statskew = scipy.stats.skew(statsample)
 	statkur = scipy.stats.kurtosis(statsample)
-	statnum = np.num(statsample)
+	statnum = len(aplrev)
+	divresult = scipy.stats.chisquare(aplrev)
+	statpval = print(divresult[0])
+	statchi = print(divresult[0])
 
-	return render_template('index.html', statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)

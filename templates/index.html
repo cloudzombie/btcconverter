@@ -54,12 +54,16 @@
                 </tbody>
             <thead>
                 <tr class="info">
-                <th data-toggle="tooltip" data-placement="top" data-container="body" title="観測数。統計の基となるデータの数です。">Data num.</th>
+                <th data-toggle="tooltip" data-placement="top" data-container="body" title="観測数。統計の基となるデータの数です。">Data Size</th>
+                <th data-toggle="tooltip" data-placement="top" data-container="body" title="カイ二乗値。出現回数に偏りがあるのかを検定した値です。">Chi-squared</th>
+                <th data-toggle="tooltip" data-placement="top" data-container="body" title="p値。p値が0.05未満であれば、数字の出現回数に偏りが見られると定義します。">p&nbsp;value</th>
                 </tr>
             </thead>
                 <tbody>
                 <tr>
                 <td>{{ statnum }}</td>
+                <td>{{ statchi }}</td>
+                <td>{{ statpval }}</td>
                 </tr>
                 </tbody>
         </table>
