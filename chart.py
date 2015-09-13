@@ -10,9 +10,7 @@ chart = Blueprint('chart',__name__)
 
 #For statistics
 stats = statistics.get()
-actualpricelist = []
 actualtimelist = []
-actualpricelist_rev = []
 actualtimelist_rev = []
 
 #Chart section
@@ -28,6 +26,8 @@ def actualprice():
 
 @chart.route('/')
 def c1():
+	actualpricelist = []
+	actualpricelist_rev = []
 
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
@@ -46,8 +46,8 @@ def c1():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
@@ -55,6 +55,8 @@ def c1():
 @chart.route('/3days')
 def c3():
 	chartnum = 3
+	actualpricelist = []
+	actualpricelist_rev = []
 
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
@@ -73,14 +75,16 @@ def c3():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/7days')
 def c7():
 	chartnum = 7
+	actualpricelist = []
+	actualpricelist_rev = []
 
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
@@ -98,8 +102,8 @@ def c7():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 
 	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
@@ -107,6 +111,8 @@ def c7():
 @chart.route('/15days')
 def c15():
 	chartnum = 15
+	actualpricelist = []
+	actualpricelist_rev = []
 
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
@@ -124,14 +130,17 @@ def c15():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/30days')
 def c30():
 	chartnum = 30
+	actualpricelist = []
+	actualpricelist_rev = []
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
@@ -148,8 +157,8 @@ def c30():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
@@ -157,6 +166,9 @@ def c30():
 @chart.route('/60days')
 def c60():
 	chartnum = 60
+	actualpricelist = []
+	actualpricelist_rev = []
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
@@ -173,14 +185,17 @@ def c60():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/90days')
 def c90():
 	chartnum = 90
+	actualpricelist = []
+	actualpricelist_rev = []
+
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
@@ -197,7 +212,7 @@ def c90():
 	statkur = scipy.stats.kurtosis(statsample)
 	statnum = len(aplrev)
 	divresult = scipy.stats.chisquare(aplrev)
-	statpval = print(divresult[0])
-	statchi = print(divresult[0])
+	statpval = divresult[0]
+	statchi = divresult[1]
 
 	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
