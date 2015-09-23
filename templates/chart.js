@@ -25,7 +25,7 @@ var chart = c3.generate({
             position: 'outer-middle'
             },
             tick: {
-                format: d3.format("$")
+                format: d3.format(".3%")
         }
     }
 }
