@@ -172,7 +172,7 @@ def chart3():
 	modelintercept = model.beta['intercept']
 
 #Price from linear reg
-	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
+	predictionpricelist = [utime * modelx + modelintercept for utime in round(ptrev,4)]
 	predictionpricelist.insert(0,'Prediction Price')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
