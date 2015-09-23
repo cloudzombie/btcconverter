@@ -60,14 +60,22 @@ def predictiontime():
 #Flask view
 @app.route('/')
 def index():
+
+#Currently disabled due to Blueprint settings - will be fixed
 	title = 'BTC Simple Converter'
-	symbolList = []
-	for sym in ccysymbol():
-		symbolList.append(sym)
-	priceList = []
-	for item in ccyprice():
-		priceList.append(item)
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbolList, priceList)]
+	print title
+	symbollist = []
+	for sym in ccysymbol:
+		symbollist.append(sym)
+
+	pricelist = []
+	for pl in ccyprice:
+		pricelist.append(pl)
+	print pricelist
+	print symbollist
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+	print price15min
 
 	return render_template('index.html', price15min=price15min, ccysymbol=symbolList, ccyprice=priceList, ccylists=ccylists(), title=title)
 
@@ -449,6 +457,6 @@ def jpy():
 	return render_template('index.html', usdmktprice=usdmktprice, excrat=excrat, excsym=excsym, home=home, name=name, btc_amo=btc_amo, ccyprice=priceList, ccylists=ccylists(), title=title)
 
 #Conf
-# if __name__ == '__main__':
-# 	app.debug = True
-# 	app.run(host='0.0.0.0')
+#if __name__ == '__main__':
+#	app.debug = True
+#	app.run(host='0.0.0.0')
