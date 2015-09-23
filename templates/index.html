@@ -38,7 +38,7 @@
                 <th data-toggle="tooltip" data-placement="top" data-container="body" title="最小値。期間中の最小の価格です。">Min</th>
                 <th data-toggle="tooltip" data-placement="top" data-container="body" title="最大値。期間中の最大の価格です。">Max</th>
                 <th data-toggle="tooltip" data-placement="top" data-container="body" title="算術平均。データの中心がどのあたりにあるのかを示す値です。">Mean</th>
-                <th data-toggle="tooltip" data-placement="top" data-container="body" title="算術平均。データの中心がどのあたりにあるのかを示す値です。"></th>
+                <th data-toggle="tooltip" data-placement="top" data-container="body" title="決定木。次にくる数値が大きいかどうかを判断します。">Dec Tree</th>
                 </tr>
             </thead>
                 <tbody>
@@ -47,6 +47,7 @@
                 <td>{{ statmin }}</td>
                 <td>{{ statmax }}</td>
                 <td>{{ statmean|round(4, 'common') }}</td>
+                <td> - </td>
                 </tr>
                 </tbody>
             <thead>
