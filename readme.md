@@ -9,13 +9,14 @@ This program provides you a conversion rate of bitcoin to the other major curren
 
 ##1. About statistics
 - Min, Max, Mean, Variance, Skewness and Kurtosis
+- Relative Strength Index - 5 or 14 days
 - Linear regression
+- Chi-squared & p-value
 - Time series (soon)
-- Chi-squared value & p-value
 
 All datas are collected from [Blockchain](https://blockchain.info).
 
-**Converter function does not work temporarily except JPY**
+**Converter function does not work temporarily.**
 
 **Warning : Please note that I won't be responsible for any loss, damages and troubles.**
 

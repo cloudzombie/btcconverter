@@ -28,13 +28,56 @@ def actualprice():
 def c1():
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
 #array for numpy
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev
+
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+
+#RSI - 14days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist14 = aplrev[:15]
+
+	for i in xrange(14):
+		rsia = rsilist14[rsix]
+		rsib = rsilist14[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 14.0
+	avgloss = sum(minuslist) / 14.0
+	rs = avggain / avgloss
+	rsi14 = 100 - 100 / (1 + rs)
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -49,7 +92,7 @@ def c1():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 
 @chart.route('/3days')
@@ -64,6 +107,8 @@ def c3():
 #array for numpy
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:3]
+	rsi5 = "Not enough data"
+	rsi14 = "Not enough data"
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -78,7 +123,7 @@ def c3():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/7days')
 def c7():
@@ -92,6 +137,29 @@ def c7():
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:7]
 
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+	rsi14 = "Not enough data"
+
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -106,7 +174,7 @@ def c7():
 	statchi = divresult[1]
 
 
-	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/15days')
 def c15():
@@ -120,6 +188,50 @@ def c15():
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:15]
 
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+
+#RSI - 14days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist14 = aplrev[:15]
+
+	for i in xrange(14):
+		rsia = rsilist14[rsix]
+		rsib = rsilist14[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 14.0
+	avgloss = sum(minuslist) / 14.0
+	rs = avggain / avgloss
+	rsi14 = 100 - 100 / (1 + rs)
+
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -133,7 +245,7 @@ def c15():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/30days')
 def c30():
@@ -147,6 +259,50 @@ def c30():
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:30]
 
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+
+#RSI - 14days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist14 = aplrev[:15]
+
+	for i in xrange(14):
+		rsia = rsilist14[rsix]
+		rsib = rsilist14[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 14.0
+	avgloss = sum(minuslist) / 14.0
+	rs = avggain / avgloss
+	rsi14 = 100 - 100 / (1 + rs)
+
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -160,7 +316,7 @@ def c30():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 
 @chart.route('/60days')
@@ -175,6 +331,50 @@ def c60():
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:60]
 
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+
+#RSI - 14days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist14 = aplrev[:15]
+
+	for i in xrange(14):
+		rsia = rsilist14[rsix]
+		rsib = rsilist14[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 14.0
+	avgloss = sum(minuslist) / 14.0
+	rs = avggain / avgloss
+	rsi14 = 100 - 100 / (1 + rs)
+
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -188,7 +388,7 @@ def c60():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
 @chart.route('/90days')
 def c90():
@@ -202,6 +402,50 @@ def c90():
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:90]
 
+#RSI - 5days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist5 = aplrev[:6]
+
+	for i in xrange(5):
+		rsia = rsilist5[rsix]
+		rsib = rsilist5[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 5.0
+	avgloss = sum(minuslist) / 5.0
+	rs = avggain / avgloss
+	rsi5 = 100 - 100 / (1 + rs)
+
+#RSI - 14days
+	pluslist = []
+	minuslist = []
+	rsix = 0
+	rsiy = 1
+	rsilist14 = aplrev[:15]
+
+	for i in xrange(14):
+		rsia = rsilist14[rsix]
+		rsib = rsilist14[rsiy]
+		rsiz = rsib - rsia
+		if rsiz > 0.0:
+			pluslist.append(rsiz)
+		else:
+			minuslist.append(-rsiz)
+		rsix += 1
+		rsiy += 1
+	avggain = sum(pluslist) / 14.0
+	avgloss = sum(minuslist) / 14.0
+	rs = avggain / avgloss
+	rsi14 = 100 - 100 / (1 + rs)
+
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -215,4 +459,4 @@ def c90():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)

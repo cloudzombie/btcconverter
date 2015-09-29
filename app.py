@@ -71,8 +71,7 @@ def index():
 	pricelist = []
 	for pl in ccyprice:
 		pricelist.append(pl)
-	print pricelist
-	print symbollist
+
 	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
 
 	print price15min

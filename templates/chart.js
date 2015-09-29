@@ -11,6 +11,9 @@ var chart = c3.generate({
             {{ predictionpricelist }}
         ]
     },
+    subchart: {
+        show: true
+    },
     axis: {
         x: {
             type: 'timeseries',
