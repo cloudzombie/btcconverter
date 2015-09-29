@@ -104,11 +104,13 @@ def c3():
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+#RSI
+	rsi5 = "Not enough data"
+	rsi14 = "Not enough data"
+
 #array for numpy
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev[:3]
-	rsi5 = "Not enough data"
-	rsi14 = "Not enough data"
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -172,7 +174,6 @@ def c7():
 	divresult = scipy.stats.chisquare(aplrev)
 	statpval = divresult[0]
 	statchi = divresult[1]
-
 
 	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 

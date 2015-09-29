@@ -123,8 +123,18 @@
                     </thead>
                         <tbody>
                         <tr>
-                        <td>{{ rsi5|round(5, 'common') }}%</td>
-                        <td>{{ rsi14|round(5, 'common') }}%</td>
+                        <td>
+                            {% if rsi5 is string %}
+                                {{ rsi5 }}
+                            {% else %}
+                                {{ rsi5|round(4, 'common') }}%
+                            {% endif %}</td>
+                        <td>
+                            {% if rsi14 is string %}
+                                {{ rsi14 }}
+                            {% else %}
+                                {{ rsi14|round(4, 'common') }}%
+                            {% endif %}</td>
                         </tr>
                         </tbody>
                 </table>
