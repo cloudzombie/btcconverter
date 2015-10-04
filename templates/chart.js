@@ -2,7 +2,7 @@ var chart = c3.generate({
     data: {
         xs: {
             'Actual Price': 'Date',
-            'Prediction Price': 'PDate'
+            'Linear Regression': 'PDate'
         },
         columns: [
             {{ actualtime }},

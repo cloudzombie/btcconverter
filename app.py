@@ -129,7 +129,7 @@ def chart():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
@@ -155,7 +155,7 @@ def chart3():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 172800)
+		predictiontimelist_rev.append(pt) # + 172800
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:3]
@@ -180,7 +180,7 @@ def chart3():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
@@ -206,7 +206,7 @@ def chart7():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 518400)
+		predictiontimelist_rev.append(pt) # + 518400
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:7]
@@ -231,7 +231,7 @@ def chart7():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
@@ -257,7 +257,7 @@ def chart15():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 1209600)
+		predictiontimelist_rev.append(pt) # + 1209600
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:15]
@@ -282,7 +282,7 @@ def chart15():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
@@ -308,7 +308,7 @@ def chart30():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 2505600)
+		predictiontimelist_rev.append(pt) # + 2505600
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:30]
@@ -333,7 +333,7 @@ def chart30():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
@@ -359,7 +359,7 @@ def chart60():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 5097600)
+		predictiontimelist_rev.append(pt) # + 5097600
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:60]
@@ -384,10 +384,9 @@ def chart60():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
-
 
 @app.route('/chart90')
 def chart90():
@@ -411,7 +410,7 @@ def chart90():
 	atl = date + atrev
 
 	for pt in predictiontime():
-		predictiontimelist_rev.append(pt + 7689600)
+		predictiontimelist_rev.append(pt) # + 7689600
 
 	predictiontimelist_rev.reverse()
 	ptrev = predictiontimelist_rev[:90]
@@ -436,10 +435,9 @@ def chart90():
 
 #Price from linear reg
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
-	predictionpricelist.insert(0,'Prediction Price')
+	predictionpricelist.insert(0,'Linear Regression')
 
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
-
 
 @app.route('/jpy', methods=['GET', 'POST'])
 def jpy():
@@ -456,6 +454,6 @@ def jpy():
 	return render_template('index.html', usdmktprice=usdmktprice, excrat=excrat, excsym=excsym, home=home, name=name, btc_amo=btc_amo, ccyprice=priceList, ccylists=ccylists(), title=title)
 
 #Conf
-#if __name__ == '__main__':
-#	app.debug = True
-#	app.run(host='0.0.0.0')
+if __name__ == '__main__':
+	app.debug = True
+	app.run(host='0.0.0.0')
