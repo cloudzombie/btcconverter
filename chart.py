@@ -5,6 +5,8 @@ import urllib2, json, requests, datetime
 import pandas as pd
 import numpy as np
 import scipy.stats
+from sklearn.svm import SVR
+
 
 chart = Blueprint('chart',__name__)
 
@@ -23,6 +25,19 @@ entries = j['values']
 def actualprice():
 	for e in entries:
 		yield e['y']
+
+def actualtime():
+	for e in entries:
+		yield datetime.datetime.fromtimestamp(int(e['x'])).strftime('%Y-%m-%d')
+
+def predictionprice():
+    for e in entries:
+        yield e['y']
+
+def predictiontime():
+    for e in entries:
+        yield e['x']
+
 
 @chart.route('/')
 def c1():
@@ -182,6 +197,10 @@ def c15():
 	chartnum = 15
 	actualpricelist = []
 	actualpricelist_rev = []
+	actualtimelist = []
+	actualtimelist_rev = []
+	predictiontimelist = []
+	predictiontimelist_rev = []
 
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
@@ -245,6 +264,40 @@ def c15():
 	divresult = scipy.stats.chisquare(aplrev)
 	statpval = divresult[0]
 	statchi = divresult[1]
+
+	for t in actualtime():
+		actualtimelist_rev.append(t)
+
+	actualtimelist_rev.reverse()
+	atrev = actualtimelist_rev[:15]
+
+	#
+	#
+	# traintime = [] #Actual unix time for train data
+	# traintimelist = [] #Actual unix time for train data
+	# for tt in predictiontime():
+	# 	traintime.append(tt)
+	# traintime.reverse()
+	# traintimelist = traintime[:15]
+	#
+	#
+	# data = aplrev
+	# label = traintimelist
+	# DATA = np.array([data]).T
+	# LABEL = np.array(label)
+	# clf  = SVR(kernel='linear', C=1e3)
+	# clf.fit(DATA, LABEL)
+	# to_predict = LABEL[:1] + 86400
+	# topre2 = DATA[DATA + 86400]
+	# print data
+	# print label
+	# print to_predict
+	# ttpl = clf.predict(to_predict)
+	# saaam = sum(label + to_predict)
+	# print saaam
+	# jyugo =  clf.predict(to_predict / saaam)
+	# print '%.3f' %ttpl
+	# print '%.3f' %jyugo
 
 	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
 
