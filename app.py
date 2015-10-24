@@ -131,19 +131,6 @@ def chart():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-#RSI
-	# pluslist = []
-	# minuslist = []
-	# rsix = 0
-	# rsiy = 1
-	# rsilist = aplrev[:]
-	#
-	# for rsicalc in xrange(365):
-	# 	avgGain = p[p > 0].sum() / n
-	# 	avgLoss = -p[p < 0].sum() / n
-	# 	rs = avgGain / avgLoss
-	# 	return 100 - 100 / (1 + rs)	rs = avggain / avgloss
-
 	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart3')
@@ -284,35 +271,8 @@ def chart15():
 
 	ptl = pd.Series(traintimelist)
 
-# #RSI - 14days
-# 	pluslist = []
-# 	minuslist = []
-# 	rsix = 0
-# 	rsiy = 1
-# 	rsilist = aplrev[:30]
-# 	rsilist.reverse()
-#
-# 	for ii in xrange(14):
-# 		for i in xrange(14):
-# 			rsia = rsilist[rsix]
-# 			rsib = rsilist[rsiy]
-# 			rsiz = rsib - rsia
-# 			if rsiz > 0.0:
-# 				pluslist.append(rsiz)
-# 			else:
-# 				minuslist.append(-rsiz)
-# 			rsix += 1
-# 			rsiy += 1
-# 		avggain = sum(pluslist) / 14.0
-# 		avgloss = sum(minuslist) / 14.0
-# 		rs = avggain / avgloss
-# 		rsi = 100 - 100 / (1 + rs)
 	for timedecode in ptrev:
 		predictiontimelist_rev_decoded.append(datetime.datetime.fromtimestamp(int(timedecode)).strftime('%Y-%m-%d'))
-# 	rsitimelist = []
-# 	for rsitime in ptrev:
-# 		rsitimelist.append(datetime.datetime.fromtimestamp(int(rsitime)).strftime('%Y-%m-%d'))
-# 	rsitimelist.reverse()
 
 #Pandas linear regression prediction model
 	model = pd.ols(y=ppl, x=ptl)

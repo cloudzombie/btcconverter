@@ -5,8 +5,6 @@ import urllib2, json, requests, datetime
 import pandas as pd
 import numpy as np
 import scipy.stats
-from sklearn.svm import SVR
-
 
 chart = Blueprint('chart',__name__)
 
@@ -31,12 +29,12 @@ def actualtime():
 		yield datetime.datetime.fromtimestamp(int(e['x'])).strftime('%Y-%m-%d')
 
 def predictionprice():
-    for e in entries:
-        yield e['y']
+	for e in entries:
+		yield e['y']
 
 def predictiontime():
-    for e in entries:
-        yield e['x']
+	for e in entries:
+		yield e['x']
 
 
 @chart.route('/')
@@ -108,7 +106,6 @@ def c1():
 	statchi = divresult[1]
 
 	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
-
 
 @chart.route('/3days')
 def c3():
@@ -271,16 +268,13 @@ def c15():
 	actualtimelist_rev.reverse()
 	atrev = actualtimelist_rev[:15]
 
-	#
-	#
-	# traintime = [] #Actual unix time for train data
-	# traintimelist = [] #Actual unix time for train data
-	# for tt in predictiontime():
-	# 	traintime.append(tt)
-	# traintime.reverse()
-	# traintimelist = traintime[:15]
-	#
-	#
+	traintime = [] #Actual unix time for train data
+	traintimelist = [] #Actual unix time for train data
+	for tt in predictiontime():
+		traintime.append(tt)
+	traintime.reverse()
+	traintimelist = traintime[:15]
+
 	# data = aplrev
 	# label = traintimelist
 	# DATA = np.array([data]).T
@@ -371,7 +365,6 @@ def c30():
 	statchi = divresult[1]
 
 	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
-
 
 @chart.route('/60days')
 def c60():
