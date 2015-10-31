@@ -9,7 +9,8 @@ This program provides you a conversion rate of bitcoin to the other major curren
 
 ##1. About statistics
 - Min, Max, Mean, Variance, Skewness and Kurtosis
-- Relative Strength Index - 5 or 14 days
+- Trade amount of BTC & USD, 24-hour Transaction Volume, and Fee Volume
+- Relative Strength Index Chart - 14 days
 - Linear regression
 - Chi-squared & p-value
 - Time series (soon)
@@ -21,7 +22,7 @@ All datas are collected from [Blockchain](https://blockchain.info).
 **Warning : Please note that I won't be responsible for any loss, damages and troubles.**
 
 ##2. Requirement modules
-Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain, C3.js
+Blockchain, Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain, C3.js
 
 ##3. Sample
 [Here](https://btcconverter.herokuapp.com)
@@ -36,7 +37,8 @@ Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v
 他にも現在は不都合な箇所が残っていますが、順次アップデート予定です。現在では以下の機能を搭載しています。
 
 - 最小値、最大値、中央値、算術平均、尖度、歪度
-- 相対力指数(RSI) 5日と14日
+- 米ドル/BTC取引量、24時間の取引量、合計手数料
+- 相対力指数(RSI) 14日
 - 線形回帰
 - カイ二乗検定値、p値
 - 時系列分析(搭載予定)

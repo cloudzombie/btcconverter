@@ -3,217 +3,207 @@
 
 <div class="container">
 <div class="bs-docs-section">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="page-header">
-                <h1 id="type"><a href="{{ url_for('index') }}">BTC Simple Converter</a></h1>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h2><a href="{{ url_for('index') }}">BTC Simple Converter</a></h2>
+			</div>
+		</div>
+	</div>
 
-    <div class="row">
-        <div id="chart">
-            <!-- Chart Code -->
-        </div>
-        <div class="col-md col-md-offset-3">
-        <a href="{{ url_for('index') }}" class="btn btn-default">Default</a>
-        <a href="/3days" class="btn btn-primary">3days</a>
-        <a href="/7days" class="btn btn-success">7days</a>
-        <a href="/15days" class="btn btn-info">15days</a>
-        <a href="/30days" class="btn btn-warning">30days</a>
-        <a href="/60days" class="btn btn-danger">60days</a>
-        <a href="/90days" class="btn btn-danger">90days</a>
-        </div><br>
-        <div class="panel panel-warning panel-dismissible">
-            <div class="panel-heading">
-            <h3 class="panel-title">Warning!</h3>
-            </div>
-            <div class="panel-body">
-            <p>The longer you choose the date span, the more inaccurate data will be shown.</p>
-            <p class="text-danger">Please note that I won't be responsible for any loss, damages and troubles.</p>{{ ttpl }}
-            </div>
-        </div>
+	<div class="row">
+		<div id="chart">
+			<!-- Chart Code -->
+		</div><br>
+		<div class="col-md col-md-offset-3">
+		<a href="{{ url_for('index') }}" class="btn btn-default">Default</a>
+		<a href="/3days" class="btn btn-primary">3days</a>
+		<a href="/7days" class="btn btn-success">7days</a>
+		<a href="/15days" class="btn btn-info">15days</a>
+		<a href="/30days" class="btn btn-warning">30days</a>
+		<a href="/60days" class="btn btn-danger">60days</a>
+		<a href="/90days" class="btn btn-danger">90days</a>
+		</div><br>
+		<!-- <div class="panel panel-warning panel-dismissible">
+			<div class="panel-heading">
+			<h3 class="panel-title">Warning!</h3>
+			</div>
+			<div class="panel-body">
+			<p>The longer you choose the date span, the more inaccurate data will be shown.</p>
+			<p class="text-danger">Please note that I won't be responsible for any loss, damages and troubles.</p>{{ ttpl }}
+			</div>
+		</div> -->
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    </button>
-                <a class="navbar-brand" href="#"><i class="fa fa-btc"></i></a>
-                </div>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+				<a class="navbar-brand" href="#"><i class="fa fa-btc"></i></a>
+				</div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#"><i class="fa fa-jpy"></i> JPY</a></a></li>
-                        <li><a href="#"><i class="fa fa-eur"></i> EUR</a></a></li>
-                        <li><a href="#"><i class="fa fa-jpy"></i> CNY</a></a></li>
-                        <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Others <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                            {% for item in ccylists %}
-                                <li><a href="#">{{ item }}</a></li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                        <input type="text" class="form-control" placeholder="BTC amo here">&nbsp;
-                        </div>
-                        <button type="submit" class="btn btn-default disabled">convert</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a>15min USD : -</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="#"><i class="fa fa-usd"></i> USD {{ pricelist[2] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-jpy"></i> JPY {{ pricelist[9] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-eur"></i> EUR {{ pricelist[1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-gbp"></i> GBP {{ pricelist[13] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-jpy"></i> CNY {{ pricelist[16] }}</a></a></li>
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Others&nbsp;<i class="fa fa-arrow-circle-o-down"></i></span></a>
+							<ul class="dropdown-menu" role="menu">
+							{% for item in ccydroplist %}<li><a href="#">{{ item }}</a></li>{% endfor %}
+							</ul>
+					</ul>
+					<form class="navbar-form navbar-right" role="search">
+						<div class="form-group">
+						<input type="text" class="form-control" placeholder="BTC amo here">&nbsp;
+						</div>
+						<button type="submit" class="btn btn-default disabled">convert</button>
+					</form>
+				</div>
+	</div>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Overview</a></li>
-            <li class=""><a href="#rsi" data-toggle="tab" aria-expanded="false">Relative Strength Index</a></li>
-            <li class=""><a href="#linear" data-toggle="tab" aria-expanded="false">Linear Regression</a></li>
-            <li class="disabled"><a>Decision Tree</a></li>
-            <li class="disabled"><a>Time Series</a></li>
-            <!-- <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            Dropdown <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-            <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
-            <li class="divider"></li>
-            <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
-            </ul>
-            </li> -->
-        </ul>
 
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade active in" id="home">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr class="primary">
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="観測数。統計の基となるデータの数です。">Data Size</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="最小値。期間中の最小の価格です。">Min</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="最大値。期間中の最大の価格です。">Max</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="算術平均。データの中心がどのあたりにあるのかを示す値です。">Mean</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>{{ statnum }}</td>
-                        <td>{{ statmin }}</td>
-                        <td>{{ statmax }}</td>
-                        <td>{{ statmean|round(4, 'common') }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="tab-pane fade" id="rsi">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr class="primary">
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="RSIの数値が70%以上になると買われ過ぎゾーン、逆に30%以下になると売られ過ぎゾーンに入るとされています。">5 days RSI</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="RSIの数値が70%以上になると買われ過ぎゾーン、逆に30%以下になると売られ過ぎゾーンに入るとされています。">14 days RSI</th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                        <tr>
-                        <td>
-                            {% if rsi5 is string %}
-                                {{ rsi5 }}
-                            {% else %}
-                                {{ rsi5|round(4, 'common') }}%
-                            {% endif %}</td>
-                        <td>
-                            {% if rsi14 is string %}
-                                {{ rsi14 }}
-                            {% else %}
-                                {{ rsi14|round(4, 'common') }}%
-                            {% endif %}</td>
-                        </tr>
-                        </tbody>
-                </table>
-            </div>
+			</div>
+		</nav>
 
-            <div class="tab-pane fade" id="linear">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr class="primary">
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="分散値。データのばらつきを示す値で、平均値からのばらつきを指します。">Variance</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="歪度。分布の左右非対称の度合いを表す値で、尖度と同時に分布が正規分布かどうかを判断する目安に用いられます。">Skewness</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="尖度。分布の尖り具合を表す値で、分布が正規分布かどうかを判断する目安に用いられます。">Kurtosis</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="カイ二乗値。出現回数に偏りがあるのかを検定した値です。">Chi-squared</th>
-                        <th data-toggle="tooltip" data-placement="top" data-container="body" title="p値。p値が0.05未満であれば、数字の出現回数に偏りが見られると定義します。">p&nbsp;value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>{{ statvar|round(4, 'common') }}</td>
-                        <td>{{ statskew|round(4, 'common') }}</td>
-                        <td>{{ statkur|round(4, 'common') }}</td>
-                        <td>{{ statchi }}</td>
-                        <td>{{ statpval }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Overview</a></li>
+			<li class=""><a href="#stats" data-toggle="tab" aria-expanded="false">Statistics</a></li>
+			<li class=""><a href="#linear" data-toggle="tab" aria-expanded="false">Linear Regression</a></li>
+			<li class="disabled"><a>Decision Tree</a></li>
+			<li class="disabled"><a>Time Series</a></li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade active in" id="home">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr class="primary">
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="観測数。統計の基となるデータの数です。">Data Size</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="最小値。期間中の最小の価格です。">Min</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="最大値。期間中の最大の価格です。">Max</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="算術平均。データの中心がどのあたりにあるのかを示す値です。">Mean</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td>{{ statnum }}</td>
+						<td>{{ statmin }}</td>
+						<td>{{ statmax }}</td>
+						<td>{{ statmean|round(4, 'common') }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="stats">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr class="primary">
+						<th data-toggle="tooltip" data-placement="top" data-container="body">BTC Trade Volume</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body">USD Trade Volume</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body">24-hour Transaction Volume</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body">Total Fee</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td>{{ btctradevolume }} BTC</td>
+						<td>$ {{ usdtradevolume }} USD</td>
+						<td>$ {{ estvolusd }} USD</td>
+						<td>{{ totalfeebtc }} BTC</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="linear">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr class="primary">
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="分散値。データのばらつきを示す値で、平均値からのばらつきを指します。">Variance</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="歪度。分布の左右非対称の度合いを表す値で、尖度と同時に分布が正規分布かどうかを判断する目安に用いられます。">Skewness</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="尖度。分布の尖り具合を表す値で、分布が正規分布かどうかを判断する目安に用いられます。">Kurtosis</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="カイ二乗値。出現回数に偏りがあるのかを検定した値です。">Chi-squared</th>
+						<th data-toggle="tooltip" data-placement="top" data-container="body" title="p値。p値が0.05未満であれば、数字の出現回数に偏りが見られると定義します。">p&nbsp;value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td>{{ statvar|round(4, 'common') }}</td>
+						<td>{{ statskew|round(4, 'common') }}</td>
+						<td>{{ statkur|round(4, 'common') }}</td>
+						<td>{{ statchi }}</td>
+						<td>{{ statpval }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Last 15mins price</strong></div>
+				<div class="panel-body">
+					{% for p in ccysetlist %}{% for pp in p %} {{ pp }}{% endfor %}&nbsp;|&nbsp;{% endfor %}
+				</div>
+			</div>
 
 <!-- Left
-    <form action="/jpy" method="post" class="form-inline"><br />
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="bs-component">
-                <div class="form-group">
-                        <input class="form-control" id="name" name="name" placeholder="Name" value="0">
-                </div>
-                <div id="source-button" class="btn btn-primary" style="display: none;">&lt; &gt;</div>
-            </div>
-        </div>
+	<form action="/jpy" method="post" class="form-inline"><br>
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="bs-component">
+				<div class="form-group">
+						<input class="form-control" id="name" name="name" placeholder="Name" value="0">
+				</div>
+				<div id="source-button" class="btn btn-primary" style="display: none;">&lt; &gt;</div>
+			</div>
+		</div>
 -->
 
 <!-- Center -->
 
 <!-- Right
-        <div class="col-lg-4">
-            <div class="bs-component">
-            {% if name %}
-            <h2>Converted Rate</h2>
-            <p>{{ excsym }} {{ name }} <i class="fa fa-arrows-h"></i> <i class="fa fa-btc"></i> {{ btc_amo }} BTC.</p>
-            <p>Effective rate : {{ excsym }} {{ excrat }} / <i class="fa fa-btc"></i> 1.000 BTC</p>
-            <p>Market Price : $ {{ usdmktprice }}</p>
-            {% else %}
-            <h2>Conversion Rate List</h2>
-            {{ rates }}
-            <p>15 minutes delayed from Blockchain</p>
-            {% for pr in price15min %}
-            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">{{ pr }}</button>
-            {% endfor %}
-            {% endif %}
-            </div>
-        </div>
-    </div>
+		<div class="col-lg-4">
+			<div class="bs-component">
+			{% if name %}
+			<h2>Converted Rate</h2>
+			<p>{{ excsym }} {{ name }} <i class="fa fa-arrows-h"></i> <i class="fa fa-btc"></i> {{ btc_amo }} BTC.</p>
+			<p>Effective rate : {{ excsym }} {{ excrat }} / <i class="fa fa-btc"></i> 1.000 BTC</p>
+			<p>Market Price : $ {{ usdmktprice }}</p>
+			{% else %}
+			<h2>Conversion Rate List</h2>
+			{{ rates }}
+			<p>15 minutes delayed from Blockchain</p>
+			{% for pr in price15min %}
+			<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">{{ pr }}</button>
+			{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+	</div>
 -->
 
 <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p><i class="fa fa-thumbs-up"></i> Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v</p>
-                <p><i class="fa fa-github"></i><a href="https://github.com/kotaura/btcconverter">&nbsp;Source code on Github</a></p>
-                <p>Based on <a target="_blank" href="https://blockchain.info">Blockchain</a>,&nbsp;<a target="_blank" href="http://getbootstrap.com" rel="nofollow">Bootstrap3</a>. Icons from <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a target="_blank" href="http://www.google.com/webfonts" rel="nofollow">Google</a>. Chart library from <a target="_blank" href="http://c3js.org">C3.js</a></p>
-                <p><strong>Please note that I won't be responsible for any loss, damages and troubles.</strong></p>
-                <p><a href="http://www.amazon.com/dp/0465043577/" target="_blank">The (Mis)behavior of Markets</a></p>
-            </div>
-        </div>
-    </footer>
-    </div>
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p><i class="fa fa-thumbs-up"></i> Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v</p>
+				<p><i class="fa fa-github"></i><a href="https://github.com/kotaura/btcconverter">&nbsp;Source code on Github</a></p>
+				<p>Based on <a target="_blank" href="https://blockchain.info">Blockchain</a>,&nbsp;<a target="_blank" href="http://getbootstrap.com" rel="nofollow">Bootstrap3</a>. Icons from <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a target="_blank" href="http://www.google.com/webfonts" rel="nofollow">Google</a>. Chart library from <a target="_blank" href="http://c3js.org">C3.js</a></p>
+				<p class="text-danger"><strong>Please note that I won't be responsible for any loss, damages and troubles.</strong><br><a href="http://www.amazon.com/dp/0465043577/" target="_blank">The (Mis)behavior of Markets</a></p>
+			</div>
+		</div>
+	</footer>
+	</div>
 </div>
 {% endblock %}
 

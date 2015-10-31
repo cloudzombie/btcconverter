@@ -60,23 +60,7 @@ def predictiontime():
 #Flask view
 @app.route('/')
 def index():
-
-#Currently disabled due to Blueprint settings - will be fixed
-	title = 'BTC Simple Converter'
-	print title
-	symbollist = []
-	for sym in ccysymbol:
-		symbollist.append(sym)
-
-	pricelist = []
-	for pl in ccyprice:
-		pricelist.append(pl)
-
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
-
-	print price15min
-
-	return render_template('index.html', price15min=price15min, ccysymbol=symbolList, ccyprice=priceList, ccylists=ccylists(), title=title)
+	return render_template('index.html', title=title)
 
 @app.route('/chart')
 def chart():
@@ -123,7 +107,6 @@ def chart():
 
 #Pandas linear regression prediction model
 	model = pd.ols(y=ppl, x=ptl)
-
 	modelx = model.beta['x']
 	modelintercept = model.beta['intercept']
 
@@ -131,7 +114,54 @@ def chart():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart3')
 def chart3():
@@ -182,7 +212,55 @@ def chart3():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart7')
 def chart7():
@@ -233,7 +311,54 @@ def chart7():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart15')
 def chart15():
@@ -284,7 +409,54 @@ def chart15():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart30')
 def chart30():
@@ -335,7 +507,54 @@ def chart30():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart60')
 def chart60():
@@ -386,7 +605,54 @@ def chart60():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/chart90')
 def chart90():
@@ -437,7 +703,54 @@ def chart90():
 	predictionpricelist = [utime * modelx + modelintercept for utime in ptrev]
 	predictionpricelist.insert(0,'Linear Regression')
 
-	return render_template('chart.js', predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
+#RSI Chart
+	rsipricelist = []
+	for rp in actualprice():
+		rsipricelist.append(rp)
+	for t in actualtime():
+		actualtimelist.append(t)
+
+	rsifirstdate = actualtimelist[14] #For reference, not to use
+
+#RSI Calculation
+	rsilist = ['RSI 14'] #Array For JS
+	rsicount = 1 #Initialize
+	listhead = 0 #Get 15 values JIC
+	listtail = 14
+
+	for calcrsi in rsipricelist:
+		if rsicount < 354:
+			calclist = rsipricelist[listhead:listtail] #Pricelist array for RSI
+			pluslist = []
+			minuslist = []
+			rsix = 0
+			rsiy = 1
+			for i in xrange(14): #RSI calc start
+				if rsiy < 14:
+					rsia = calclist[rsix]
+					rsib = calclist[rsiy]
+					rsiz = rsib - rsia
+					if rsiz > 0.0:
+						pluslist.append(rsiz)
+					else:
+						minuslist.append(-rsiz)
+					rsix += 1
+					rsiy += 1
+			avggain = sum(pluslist) / 14.0
+			avgloss = sum(minuslist) / 14.0
+			rsia = 0
+			rsib = 0
+			rsiz = 0
+			rs = avggain / avgloss
+			rsi = 100 - 100 / (1 + rs)
+			rsilist.append(rsi)
+			rsicount += 1 #Increment count for next for-paragraph
+			listhead += 1
+			listtail += 1
+			del pluslist[:] #Initialize all lists that works for only python 2.7
+			del minuslist[:]
+
+	return render_template('chart.js', rsilist=rsilist, predictionpricelist=predictionpricelist, predictiontime=predictiontimelist_rev_decoded, modelx=modelx, modelintercept=modelintercept, actualtime=atl, actualprice=apl)
 
 @app.route('/jpy', methods=['GET', 'POST'])
 def jpy():

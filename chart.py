@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from blockchain import exchangerates, statistics
-from flask import Blueprint
 import urllib2, json, requests, datetime
 import pandas as pd
 import numpy as np
@@ -12,6 +11,7 @@ chart = Blueprint('chart',__name__)
 stats = statistics.get()
 actualtimelist = []
 actualtimelist_rev = []
+ticker = exchangerates.get_ticker()
 
 #Chart section
 jsonfilein = 'https://blockchain.info/charts/market-price?showDataPoints=false&timespan=&show_header=true&daysAverageString=1&scale=0&format=json&address='
@@ -19,6 +19,28 @@ r = requests.get(jsonfilein)
 j = r.json()
 entries = j['values']
 
+def ccylists():
+	return ticker
+
+def ccyprice():
+	for k in ticker:
+		yield ticker[k].p15min
+
+def ccysymbol():
+	for s in ticker:
+		yield ticker[s].symbol
+
+def ccydrop():
+	for s in ticker:
+		yield s
+
+def ccyset():
+	for k in ticker:
+		yield k, ticker[k].symbol, ticker[k].p15min
+
+def ccysymamo():
+	for sa in ticker:
+		yield sa, ticker[sa].p15min
 
 def actualprice():
 	for e in entries:
@@ -36,62 +58,47 @@ def predictiontime():
 	for e in entries:
 		yield e['x']
 
-
 @chart.route('/')
+
 def c1():
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
+
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
 
 #array for numpy
 	actualpricelist_rev.reverse()
 	aplrev = actualpricelist_rev
 
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-
-#RSI - 14days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist14 = aplrev[:15]
-
-	for i in xrange(14):
-		rsia = rsilist14[rsix]
-		rsib = rsilist14[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 14.0
-	avgloss = sum(minuslist) / 14.0
-	rs = avggain / avgloss
-	rsi14 = 100 - 100 / (1 + rs)
-
 #stats datas
 	statsample = np.array(aplrev)
 	statmin = np.min(statsample)
@@ -105,24 +112,48 @@ def c1():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
+	return render_template('index.html', btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/3days')
 def c3():
 	chartnum = 3
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
-#RSI
-	rsi5 = "Not enough data"
-	rsi14 = "Not enough data"
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
 
 #array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:3]
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -137,42 +168,48 @@ def c3():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/7days')
 def c7():
 	chartnum = 7
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
+
+#array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:7]
-
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-	rsi14 = "Not enough data"
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -187,67 +224,48 @@ def c7():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/15days')
 def c15():
 	chartnum = 15
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-	actualtimelist = []
-	actualtimelist_rev = []
-	predictiontimelist = []
-	predictiontimelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
+
+#array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:15]
-
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-
-#RSI - 14days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist14 = aplrev[:15]
-
-	for i in xrange(14):
-		rsia = rsilist14[rsix]
-		rsib = rsilist14[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 14.0
-	avgloss = sum(minuslist) / 14.0
-	rs = avggain / avgloss
-	rsi14 = 100 - 100 / (1 + rs)
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -262,94 +280,48 @@ def c15():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	for t in actualtime():
-		actualtimelist_rev.append(t)
-
-	actualtimelist_rev.reverse()
-	atrev = actualtimelist_rev[:15]
-
-	traintime = [] #Actual unix time for train data
-	traintimelist = [] #Actual unix time for train data
-	for tt in predictiontime():
-		traintime.append(tt)
-	traintime.reverse()
-	traintimelist = traintime[:15]
-
-	# data = aplrev
-	# label = traintimelist
-	# DATA = np.array([data]).T
-	# LABEL = np.array(label)
-	# clf  = SVR(kernel='linear', C=1e3)
-	# clf.fit(DATA, LABEL)
-	# to_predict = LABEL[:1] + 86400
-	# topre2 = DATA[DATA + 86400]
-	# print data
-	# print label
-	# print to_predict
-	# ttpl = clf.predict(to_predict)
-	# saaam = sum(label + to_predict)
-	# print saaam
-	# jyugo =  clf.predict(to_predict / saaam)
-	# print '%.3f' %ttpl
-	# print '%.3f' %jyugo
-
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/30days')
 def c30():
 	chartnum = 30
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
+
+#array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:30]
-
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-
-#RSI - 14days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist14 = aplrev[:15]
-
-	for i in xrange(14):
-		rsia = rsilist14[rsix]
-		rsib = rsilist14[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 14.0
-	avgloss = sum(minuslist) / 14.0
-	rs = avggain / avgloss
-	rsi14 = 100 - 100 / (1 + rs)
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -364,63 +336,48 @@ def c30():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/60days')
 def c60():
 	chartnum = 60
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
+
+#array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:60]
-
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-
-#RSI - 14days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist14 = aplrev[:15]
-
-	for i in xrange(14):
-		rsia = rsilist14[rsix]
-		rsib = rsilist14[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 14.0
-	avgloss = sum(minuslist) / 14.0
-	rs = avggain / avgloss
-	rsi14 = 100 - 100 / (1 + rs)
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -435,63 +392,48 @@ def c60():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
 
 @chart.route('/90days')
 def c90():
 	chartnum = 90
+#Var
 	actualpricelist = []
 	actualpricelist_rev = []
-
 	for ap in actualprice():
 		actualpricelist_rev.append(ap)
 
+	ccysetlist = []
+	for ccys in ccyset():
+		ccysetlist.append(ccys)
+
+	symbollist = []
+	pricelist = []
+	for sym in ccysymbol():
+		symbollist.append(sym)
+	for pl in ccyprice():
+		pricelist.append(pl)
+
+	ccydroplist = []
+	for ccyd in ccydrop():
+		ccydroplist.append(ccyd)
+
+	ccysymamolist = []
+	for ccysa in ccysymamo():
+		ccysymamolist.append(ccysa)
+
+#General stock infos
+	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+
+#Statistics tab
+	btctradevolume = stats.trade_volume_btc
+	usdtradevolume = stats.trade_volume_usd
+	estvolusd = stats.estimated_transaction_volume_usd
+	totalfeebtc = stats.total_fees_btc
+
+#array for numpy
 	actualpricelist_rev.reverse()
-	aplrev = actualpricelist_rev[:90]
-
-#RSI - 5days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist5 = aplrev[:6]
-
-	for i in xrange(5):
-		rsia = rsilist5[rsix]
-		rsib = rsilist5[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 5.0
-	avgloss = sum(minuslist) / 5.0
-	rs = avggain / avgloss
-	rsi5 = 100 - 100 / (1 + rs)
-
-#RSI - 14days
-	pluslist = []
-	minuslist = []
-	rsix = 0
-	rsiy = 1
-	rsilist14 = aplrev[:15]
-
-	for i in xrange(14):
-		rsia = rsilist14[rsix]
-		rsib = rsilist14[rsiy]
-		rsiz = rsib - rsia
-		if rsiz > 0.0:
-			pluslist.append(rsiz)
-		else:
-			minuslist.append(-rsiz)
-		rsix += 1
-		rsiy += 1
-	avggain = sum(pluslist) / 14.0
-	avgloss = sum(minuslist) / 14.0
-	rs = avggain / avgloss
-	rsi14 = 100 - 100 / (1 + rs)
+	aplrev = actualpricelist_rev
 
 #stats datas
 	statsample = np.array(aplrev)
@@ -506,4 +448,4 @@ def c90():
 	statpval = divresult[0]
 	statchi = divresult[1]
 
-	return render_template('index.html', rsi14=rsi14, rsi5=rsi5, statnum=statnum, statpval=statpval, statchi=statchi, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur, chartnum=chartnum)
+	return render_template('index.html', chartnum=chartnum, btctradevolume=btctradevolume, usdtradevolume=usdtradevolume, estvolusd=estvolusd, totalfeebtc=totalfeebtc, ccysymamolist=ccysymamolist, ccydroplist=ccydroplist, ccysetlist=ccysetlist, price15min=price15min, symbollist=symbollist, pricelist=pricelist, statpval=statpval, statchi=statchi, statnum=statnum, statmean=statmean, statmin=statmin, statmax=statmax, statvar=statvar, statskew=statskew, statkur=statkur)
