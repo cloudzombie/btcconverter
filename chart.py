@@ -88,6 +88,7 @@ def c1():
 
 #General stock infos
 	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	sorted(price15min)
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
