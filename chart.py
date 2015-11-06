@@ -70,7 +70,7 @@ def c1():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
-	sorted(ccysetlist, key=lambda symb: symb[0])
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -86,10 +86,10 @@ def c1():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
-	sorted(ccysymamolist)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols: symbols[0])
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -98,7 +98,7 @@ def c1():
 	totalfeebtc = stats.total_fees_btc
 
 #array for numpy
-	actualpricelist_rev.reverse()
+	actualpricelist_rev.sort(reverse=True)
 	aplrev = actualpricelist_rev
 
 #stats datas
@@ -128,6 +128,7 @@ def c3():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -143,9 +144,10 @@ def c3():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -184,6 +186,7 @@ def c7():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -199,9 +202,10 @@ def c7():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -240,6 +244,7 @@ def c15():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -255,9 +260,10 @@ def c15():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -296,6 +302,7 @@ def c30():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -311,9 +318,10 @@ def c30():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -352,6 +360,7 @@ def c60():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -367,9 +376,10 @@ def c60():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
@@ -408,6 +418,7 @@ def c90():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	ccysetlist.sort(key=lambda x:x[0])
 
 	symbollist = []
 	pricelist = []
@@ -423,9 +434,10 @@ def c90():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	ccysymamolist.sort(key=lambda x:x[0])
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols:symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc

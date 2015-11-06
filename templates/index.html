@@ -50,11 +50,11 @@
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="#"><i class="fa fa-usd"></i> USD {{ ccysymamolist[2][1] }}</a></a></li>
-						<li><a href="#"><i class="fa fa-jpy"></i> JPY {{ ccysymamolist[9][1] }}</a></a></li>
-						<li><a href="#"><i class="fa fa-eur"></i> EUR {{ ccysymamolist[1][1] }}</a></a></li>
-						<li><a href="#"><i class="fa fa-gbp"></i> GBP {{ ccysymamolist[13][1] }}</a></a></li>
-						<li><a href="#"><i class="fa fa-jpy"></i> CNY {{ ccysymamolist[16][1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-usd"></i> USD {{ ccysymamolist[20][1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-jpy"></i> JPY {{ ccysymamolist[11][1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-eur"></i> EUR {{ ccysymamolist[7][1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-gbp"></i> GBP {{ ccysymamolist[8][1] }}</a></a></li>
+						<li><a href="#"><i class="fa fa-jpy"></i> CNY {{ ccysymamolist[5][1] }}</a></a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Others&nbsp;<i class="fa fa-arrow-circle-o-down"></i></a></li>
 						<ul class="dropdown-menu" role="menu">
 							{% for item in ccydroplist %}<li><a href="#">{{ item }}</a></li>{% endfor %}
@@ -113,10 +113,10 @@
 					</thead>
 					<tbody>
 						<tr>
-						<td>{{ btctradevolume }} BTC</td>
-						<td>$ {{ usdtradevolume }} USD</td>
-						<td>$ {{ estvolusd }} USD</td>
-						<td>{{ totalfeebtc }} BTC</td>
+						<td><i class="fa fa-btc"></i> {{ btctradevolume }} BTC</td>
+						<td><i class="fa fa-usd"></i> {{ usdtradevolume }} USD</td>
+						<td><i class="fa fa-usd"></i> {{ estvolusd }} USD</td>
+						<td><i class="fa fa-btc"></i> {{ totalfeebtc }} BTC</td>
 						</tr>
 					</tbody>
 				</table>
@@ -150,7 +150,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><strong>Last 15mins price</strong></div>
 			<div class="panel-body">
-				{% for p in ccysetlist %}{% for pp in p %} {{ pp }}{% endfor %}&nbsp;|&nbsp;{% endfor %}
+				{% for p in ccysetlist %}{% for pp in p %} {{ pp }}{% endfor %}&nbsp;<strong>|</strong>&nbsp;{% endfor %}
 			</div>
 		</div>
 
