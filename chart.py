@@ -70,6 +70,7 @@ def c1():
 	ccysetlist = []
 	for ccys in ccyset():
 		ccysetlist.append(ccys)
+	sorted(ccysetlist, key=lambda symb: symb[0])
 
 	symbollist = []
 	pricelist = []
@@ -85,10 +86,10 @@ def c1():
 	ccysymamolist = []
 	for ccysa in ccysymamo():
 		ccysymamolist.append(ccysa)
+	sorted(ccysymamolist)
 
 #General stock infos
-	price15min = ['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)]
-	sorted(price15min)
+	price15min = sorted(['%s%d'%(a,b) for a,b in zip(symbollist, pricelist)], key=lambda symbols: symbols[0])
 
 #Statistics tab
 	btctradevolume = stats.trade_volume_btc
