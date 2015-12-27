@@ -1,16 +1,22 @@
 ~~BTC Simple Converter and Predictor~~
-#BTCStats
+# BTCStats
 
 ![](./images/btconv.tiff)
 
-##0. About this program
+## 0. About this program
 Yes... This **was** just a converter, but actually this is NOT a converter anymore. Yup, this shows BTC statistics from the point of view of finance.
 
 So this program **NEVER** provides you a conversion rate of bitcoin to the other major currencies. Also this will help you to buy/sell bitcoins by prediction chart.
 
 I might fix all of these problems... someday.
 
-##1. About statistics
+## 1. Run
+
+1. Uncomment below #Conf on app.py
+2. Change directory to `path/to/btcconverter/app.py` on Terminal
+3. `python app.py`
+
+## 2. About statistics
 - Min, Max, Mean, Variance, Skewness and Kurtosis
 - Trade amount of BTC & USD, 24-hour Transaction Volume, and Fee Volume
 - Relative Strength Index Chart - 14 days
@@ -22,15 +28,16 @@ All datas are collected from [Blockchain](https://blockchain.info).
 
 **Warning : Please note that I won't be responsible for any loss, damages and troubles.**
 
-##2. Requirement modules
+## 3. Required modules
 Blockchain, Flask, Blueprint, Numpy, Pandas, Scikit-learn, Blockchain, C3.js
 
-##3. Sample
+## 4. Sample
 [Here](https://btcconverter.herokuapp.com)
 
 This system will be down between 3AM and 9AM PDT. Powered by Heroku.
 
 Donate by Bitcoin : 182AK1UUgwNNur2g3h1vaY7b41MDax2C2v
+
 
 
 ## 日本語
